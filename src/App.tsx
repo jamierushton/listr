@@ -1,25 +1,79 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./scss/listr.scss";
+import AddTask from "./components/AddTask";
+import ProgressBar from "./components/ProgressBar";
+import TaskList from "./components/TaskList";
+import { Provider, Subscribe } from "unstated";
+import { TaskStateContainer } from "./store/TaskStateContainer";
+import { Task } from "./store/Types";
 
-class App extends Component {
+const app_name: string = "listr";
+
+interface State {
+  tasks: Array<Task>;
+}
+
+class App extends Component<{}, State> {
+  constructor(props: any) {
+    super(props);
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
+      <div>
+        <nav className="navbar navbar-expand-md fixed-top">
+          <a className="navbar-brand" href="#">
+            {app_name}
           </a>
-        </header>
+        </nav>
+
+        <main role="main">
+          <div className="jumbotron">
+            <div className="container">
+              <h1 className="display-2">unclutter you life with {app_name}</h1>
+              <p>
+                Probably some super snazzy strapline telling people how life can
+                feel overwhelming amd that it doesn’t have to.&nbsp;
+                {app_name} lets you keep track of everything in one place, so
+                you can get it all done and enjoy more peace of mind along the
+                way.
+              </p>
+            </div>
+          </div>
+
+          <Provider>
+            <Subscribe to={[TaskStateContainer]}>
+              {(stateContainer: TaskStateContainer) => (
+                <div className="container">
+                  <AddTask onAdd={stateContainer.addTask} />
+
+                  <hr />
+
+                  {stateContainer.state.tasks.length > 0 && (
+                    <div>
+                      <div className="row justify-content-md-center">
+                        <div className="col-md-9">
+                          <ProgressBar
+                            value={stateContainer.percentComplete()}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row justify-content-md-center">
+                        <div className="col-md-9">
+                          <TaskList
+                            tasks={stateContainer.state.tasks}
+                            selectTask={stateContainer.markTask}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </Subscribe>
+          </Provider>
+        </main>
       </div>
     );
   }

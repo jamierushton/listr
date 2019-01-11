@@ -1,0 +1,13 @@
+// override bootstrap's primary colour
+$primary: #D64545;
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+body {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+a.completed { text-decoration: line-through !important; }
+
+.progress { height: 30px; }
