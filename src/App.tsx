@@ -54,7 +54,6 @@ class App extends Component<{}, State> {
                 </div>
               </div>
             </div>
-            )}
           </Provider>
         </main>
       </div>
