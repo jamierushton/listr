@@ -30,7 +30,10 @@ class App extends Component<{}, State> {
             <div className="container">
               <h1 className="display-2">unclutter you life with {app_name}</h1>
               <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a massa risus. Curabitur auctor bibendum dolor sit amet dignissim. Donec ac lorem eu risus volutpat faucibus. Nunc fermentum in ex vel vehicula.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a
+                massa risus. Curabitur auctor bibendum dolor sit amet dignissim.
+                Donec ac lorem eu risus volutpat faucibus. Nunc fermentum in ex
+                vel vehicula.
               </p>
             </div>
           </div>
@@ -50,27 +53,6 @@ class App extends Component<{}, State> {
                   <TaskList />
                 </div>
               </div>
-
-              {/* {stateContainer.state.tasks.length > 0 && (
-                    <div>
-                      <div className="row justify-content-md-center">
-                        <div className="col-md-9">
-                          <ProgressBar
-                            value={stateContainer.percentComplete()}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="row justify-content-md-center">
-                        <div className="col-md-9">
-                          <TaskList
-                            tasks={stateContainer.state.tasks}
-                            selectTask={stateContainer.markTask}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )} */}
             </div>
             )}
           </Provider>
