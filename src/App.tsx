@@ -3,15 +3,10 @@ import "./scss/listr.scss";
 import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
 import { Provider } from "unstated";
-import { Task } from "./store/Types";
 
 const app_name: string = "listr";
 
-interface State {
-  tasks: Array<Task>;
-}
-
-class App extends Component<{}, State> {
+class App extends Component {
   constructor(props: any) {
     super(props);
   }
