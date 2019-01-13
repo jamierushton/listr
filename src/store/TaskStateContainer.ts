@@ -22,10 +22,15 @@ export class TaskStateContainer extends Container<TasksState> {
   };
 
   addTask = (newTask: string) => {
+    newTask = newTask.trim();
+
+    if (newTask === "")
+      return;
+
     this.setState({
       tasks: [
         ...this.state.tasks,
-        { id: this.state.lastId++, text: newTask.trim(), isCompleted: false }
+        { id: this.state.lastId++, text: newTask, isCompleted: false }
       ]
     });
   };
