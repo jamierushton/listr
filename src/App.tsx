@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import "./scss/listr.scss";
 import AddTask from "./components/AddTask";
-import ProgressBar from "./components/ProgressBar";
 import TaskList from "./components/TaskList";
-import { Provider, Subscribe } from "unstated";
-import { TaskStateContainer } from "./store/TaskStateContainer";
+import { Provider } from "unstated";
 import { Task } from "./store/Types";
 
 const app_name: string = "listr";
@@ -32,24 +30,28 @@ class App extends Component<{}, State> {
             <div className="container">
               <h1 className="display-2">unclutter you life with {app_name}</h1>
               <p>
-                Probably some super snazzy strapline telling people how life can
-                feel overwhelming amd that it doesn’t have to.&nbsp;
-                {app_name} lets you keep track of everything in one place, so
-                you can get it all done and enjoy more peace of mind along the
-                way.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a massa risus. Curabitur auctor bibendum dolor sit amet dignissim. Donec ac lorem eu risus volutpat faucibus. Nunc fermentum in ex vel vehicula.
               </p>
             </div>
           </div>
 
           <Provider>
-            <Subscribe to={[TaskStateContainer]}>
-              {(stateContainer: TaskStateContainer) => (
-                <div className="container">
-                  <AddTask onAdd={stateContainer.addTask} />
+            <div className="container">
+              <div className="form-group row justify-content-md-center">
+                <div className="col-9">
+                  <AddTask />
+                </div>
+              </div>
 
-                  <hr />
+              <hr />
 
-                  {stateContainer.state.tasks.length > 0 && (
+              <div className="row justify-content-md-center">
+                <div className="col-md-9">
+                  <TaskList />
+                </div>
+              </div>
+
+              {/* {stateContainer.state.tasks.length > 0 && (
                     <div>
                       <div className="row justify-content-md-center">
                         <div className="col-md-9">
@@ -68,10 +70,9 @@ class App extends Component<{}, State> {
                         </div>
                       </div>
                     </div>
-                  )}
-                </div>
-              )}
-            </Subscribe>
+                  )} */}
+            </div>
+            )}
           </Provider>
         </main>
       </div>

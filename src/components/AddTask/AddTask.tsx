@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-
-interface IProps {
-  onAdd: (task: string) => void;
-}
+import { Subscribe } from "unstated";
+import { TaskStateContainer } from "../../store/TaskStateContainer";
 
 interface IState {
   taskInput: string;
 }
 
-class AddTask extends Component<IProps, IState> {
-  constructor(props: IProps) {
+class AddTask extends Component<{}, IState> {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -19,8 +17,9 @@ class AddTask extends Component<IProps, IState> {
 
   render() {
     return (
-      <div className="form-group row justify-content-md-center">
-        <div className="col-9">
+      <Subscribe to={[TaskStateContainer]}>
+        {(stateContainer: TaskStateContainer) => (
+
           <div className="input-group">
             <input
               type="text"
@@ -28,7 +27,7 @@ class AddTask extends Component<IProps, IState> {
               placeholder="Start typing a new task"
               value={this.state.taskInput}
               onChange={e => this.handleOnChange(e)}
-              onKeyUp={e => this.handleKeyPress(e)}
+              onKeyUp={e => this.handleKeyPress(e, stateContainer)}
             />
 
             <div className="input-group-append">
@@ -36,28 +35,29 @@ class AddTask extends Component<IProps, IState> {
               <button
                 type="button"
                 className="btn btn-primary btn-lg"
-                onClick={() => this.createTask()}
+                onClick={() => this.createTask(stateContainer)}
               >
                 Add
               </button>
 
             </div>
           </div>
-        </div>
-      </div>
+
+        )}
+      </Subscribe>
     );
   }
 
-  private createTask() {
-    this.props.onAdd(this.state.taskInput);
+  private createTask(stateContainer: TaskStateContainer) {
+    stateContainer.addTask(this.state.taskInput);
     this.setState({
       taskInput: ""
     });
   }
 
-  private handleKeyPress(e: any): void {
+  private handleKeyPress(e: any, stateContainer: TaskStateContainer): void {
     this.handleOnChange(e);
-    if (e.keyCode === 13) this.createTask();
+    if (e.keyCode === 13) this.createTask(stateContainer);
   }
 
   private handleOnChange(e: any): void {

@@ -1,32 +1,38 @@
 import React, { Component } from "react";
 import TaskItem from "./TaskItem";
 import { Task } from "../../store/Types";
+import { Subscribe } from "unstated";
+import { TaskStateContainer } from "../../store/TaskStateContainer";
+import ProgressBar from "../ProgressBar";
 
-interface IProps {
-  tasks: Array<Task>;
-  selectTask: (taskId: number) => void;
-}
-
-class TaskList extends Component<IProps> {
-  constructor(props: IProps) {
+class TaskList extends Component {
+  constructor(props: any) {
     super(props);
   }
 
   render() {
     return (
-      <div className="list-group list-group-flush">
-        {this.renderItems()}
-      </div>
+      <Subscribe to={[TaskStateContainer]}>
+        {(stateContainer: TaskStateContainer) => (
+          <div>
+            <ProgressBar value={stateContainer.percentComplete()} />
+
+            <div className="list-group list-group-flush">
+              {this.renderItems(stateContainer)}
+            </div>
+          </div>
+        )}
+      </Subscribe>
     );
   }
 
-  private renderItems() {
-    return this.props.tasks.map(item => {
+  private renderItems(stateContainer: TaskStateContainer) {
+    return stateContainer.state.tasks.map(item => {
       return (
         <TaskItem
           key={item.id}
           task={item}
-          onClick={(task: Task) => this.props.selectTask(task.id)}
+          onClick={(task: Task) => stateContainer.markTask(task.id)}
         />
       );
     });

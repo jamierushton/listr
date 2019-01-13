@@ -8,6 +8,7 @@ export class TaskStateContainer extends Container<TasksState> {
       tasks: [
         { id: -1, text: "add way to delete tasks", isCompleted: false },
         { id: -2, text: "add a backend to actually persist tasks", isCompleted: false },
+        { id: -3, text: "a completed task", isCompleted: true },
       ],
       lastId: 0
     };
