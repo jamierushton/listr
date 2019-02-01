@@ -15,7 +15,6 @@ class TaskItem extends Component<IProps> {
     return (
       <a
         onClick={() => this.props.onClick(this.props.task)}
-        href="#"
         className={
           "list-group-item list-group-item-action " + this.statusClass()
         }
